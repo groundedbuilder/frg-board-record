@@ -4,6 +4,7 @@
 (function(){
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const plural=(n,w)=>`${n} ${w}${n===1?"":"s"}`;
 const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const TABS=["meetings","stories","map","votes"];
 const DATA_URL="data/meetings.json";
@@ -12,10 +13,10 @@ const DATA_URL="data/meetings.json";
 function showError(err){
   const local=location.protocol==="file:";
   $("#view-meetings").setAttribute("aria-busy","false");
-  $("#view-meetings").innerHTML=`<div class="status error" role="alert"><h2>The meeting data didn't load</h2>
-    <p>${local?"Browsers block this page from reading its data file when it's opened straight from your computer. Start a local preview instead (see the README: <code>python3 -m http.server</code>) and open <code>http://localhost:8000</code>.":"Something went wrong fetching the meeting list. Check your connection and try again."}</p>
-    <button type="button" class="btn" id="retry">Try again</button></div>`;
-  $("#retry").onclick=()=>{$("#view-meetings").innerHTML=`<div class="status"><span class="spinner" aria-hidden="true"></span>Loading meetings&hellip;</div>`;load()};
+  $("#view-meetings").innerHTML=`<div class="status error" role="alert"><h2>The meeting list didn't load</h2>
+    <p>${local?"Browsers block this page from reading its data file when it's opened straight from your computer. Start a local preview instead (see the README: <code>python3 -m http.server</code>) and open <code>http://localhost:8000</code>.":"The meeting data couldn't be fetched. Check your connection and try again."}</p>
+    <button type="button" class="btn" id="retry"><svg class="icon" aria-hidden="true"><use href="#i-retry"/></svg>Try again</button></div>`;
+  $("#retry").onclick=()=>{$("#view-meetings").innerHTML=`<div class="status"><span class="spinner" aria-hidden="true"></span>Loading meetings&hellip;</div><div class="skeleton" aria-hidden="true"><div></div><div></div><div></div></div>`;load()};
   console.error(err);
 }
 function load(){
@@ -27,7 +28,6 @@ document.readyState==="loading"?document.addEventListener("DOMContentLoaded",loa
 
 function init(DATA){
 $("#view-meetings").setAttribute("aria-busy","false");
-document.body.classList.remove("is-loading");
 const rows=(DATA&&DATA.rows||[]).map((r,i)=>({...r,i,y:String(r.d).slice(0,4),tags:String(r.g||"").split(";").map(t=>t.trim()).filter(Boolean)}));
 const about=Object.fromEntries((DATA&&DATA.about||[]).map(a=>[a[0],a[1]]));
 
@@ -115,9 +115,10 @@ $("#stats").innerHTML=[
   [rows.filter(r=>r.p&&r.p!=="None."&&r.s!=="Cancelled").length,"with public comment"],
   [yrs.length?yrs[0]+"–"+yrs[yrs.length-1].slice(2):"–","years covered"]
 ].map(([n,l])=>`<div class="stat"><b>${n}</b><small>${l}</small></div>`).join("");
-$("#foot-src").innerHTML=`Source: <a href="${esc(about.Source||"#")}" target="_blank" rel="noopener">foxrivergrove.org</a> &middot; Last checked ${esc(about["Last checked"]||"")}${about["Backfill status"]?" &middot; "+esc(about["Backfill status"]):""}`;
+{const lc=about["Last checked"]||"",lcd=/^\d{4}-\d\d-\d\d$/.test(lc)?new Date(lc+"T12:00").toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}):lc;
+  $("#foot-src").innerHTML=`Village site last checked ${esc(lcd)}`;}
 if(DATA.updated){const d=new Date(DATA.updated);
-  if(!isNaN(d))$("#foot-updated").innerHTML=`Data updated <time datetime="${esc(DATA.updated)}">${d.toLocaleDateString("en-US",{year:"numeric",month:"short",day:"numeric"})}</time>`;}
+  if(!isNaN(d))$("#foot-updated").innerHTML=`Data updated <time datetime="${esc(DATA.updated)}">${d.toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"})}</time>`;}
 
 // --- filter controls
 const tagCount={};rows.forEach(r=>r.tags.forEach(t=>tagCount[t]=(tagCount[t]||0)+1));
@@ -189,13 +190,13 @@ function meetingCard(r){
   const dates=`<div class="datebox"><div class="m">${m}</div><div class="d">${day}</div><div class="y">${r.y}</div></div>`;
   const label=`${MON[d.getMonth()]} ${day}, ${r.y}`;
   const docs=[["Agenda",r.ag],["Packet",r.pk],["Minutes",r.mn]].filter(x=>x[1]).map(([l,u])=>{const t=r.s==="Cancelled"&&l==="Agenda"?"Notice":l;
-    return `<a href="${esc(u)}" target="_blank" rel="noopener" aria-label="${t} PDF, ${label} (opens in new tab)">${t}</a>`}).join("");
+    return `<a href="${esc(u)}" target="_blank" rel="noopener" aria-label="${t} PDF, ${label} (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>${t}</a>`}).join("");
   if(r.s==="Cancelled")return `<article class="mtg cancelled" aria-label="${label}, cancelled">${dates}<div><div class="mhead"><span class="pill cancel">Cancelled</span><span class="pill">${esc(r.t)}</span></div><div class="docs">${docs}</div></div></article>`;
   const pills=[r.t&&r.t!=="Regular"?`<span class="pill special">${esc(r.t)}</span>`:`<span class="pill">Regular</span>`,
-    r.split?`<span class="pill split">Split vote</span>`:"",r.k==="Pending"?`<span class="pill pending">Minutes pending</span>`:""].join("");
-  const pc=r.p&&r.p!=="None."&&r.p.trim()?`<details class="sec"${S.q&&r.p.toLowerCase().includes(S.q.toLowerCase())?" open":""}><summary>Public comment</summary><p>${hl(r.p)}</p></details>`:"";
-  const dis=r.no.length?`<span class="dissent">No votes: ${esc([...new Set(r.no)].join(", "))}</span>`:"";
-  const absn=r.abs.length?`<span class="dissent" style="color:var(--muted)">Absent: ${esc(r.abs.join(", "))}</span>`:"";
+    r.split?`<span class="pill split">Split vote</span>`:"",r.k==="Pending"?`<span class="pill pending">Minutes not yet posted</span>`:""].join("");
+  const pc=r.p&&r.p!=="None."&&r.p.trim()?`<details class="sec"${S.q&&r.p.toLowerCase().includes(S.q.toLowerCase())?" open":""}><summary><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Public comment</summary><p>${hl(r.p)}</p></details>`:"";
+  const dis=r.no.length?`<span class="dissent">Voted no: ${esc([...new Set(r.no)].join(", "))}</span>`:"";
+  const absn=r.abs.length?`<span class="dissent abs">Absent: ${esc(r.abs.join(", "))}</span>`:"";
   return `<article class="mtg" aria-label="${label} meeting">${dates}<div style="min-width:0">
     <div class="mhead">${pills}${dis}${absn}</div>
     <div class="sec"><h4>On the agenda</h4><p>${hl(r.a)}</p></div>
@@ -208,14 +209,14 @@ function renderMeetings(){
   if(!rows.length){$("#view-meetings").innerHTML=`<div class="empty">No meetings in the tracker yet.</div>`;return}
   const list=filtered().sort((a,b)=>S.sort==="desc"?b.d.localeCompare(a.d):a.d.localeCompare(b.d));
   const act=[...[...S.years].map(y=>["year",y,y]),...[...S.topics].map(t=>["topic",t,t]),
-    S.quarter?["quarter",S.quarter,S.quarter.replace("-"," ")]:null,S.member?["member",S.member.n,(S.member.k==="no"?"No votes: ":"Absent: ")+S.member.n]:null,
+    S.quarter?["quarter",S.quarter,S.quarter.replace("-"," ")]:null,S.member?["member",S.member.n,(S.member.k==="no"?"Voted no: ":"Absent: ")+S.member.n]:null,
     S.split?["split","","Split votes"]:null,S.pc?["pc","","Public comment"]:null,!S.hideCancelled?["cancelled","","Including cancelled"]:null].filter(Boolean);
-  let html=`<div class="resultbar"><div class="active-filters"><span role="status">${list.filter(r=>r.s!=="Cancelled").length} meetings${S.q?` matching “${esc(S.q)}”`:""}</span>${act.map(([k,v,l])=>`<button type="button" class="chip" data-clear="${k}" data-v="${esc(v)}" aria-label="Remove filter: ${esc(l)}">${esc(l)} <span aria-hidden="true">×</span></button>`).join("")}</div>
+  let html=`<div class="resultbar"><div class="active-filters"><span role="status">${plural(list.filter(r=>r.s!=="Cancelled").length,"meeting")}${S.q?` matching “${esc(S.q)}”`:""}</span>${act.map(([k,v,l])=>`<button type="button" class="chip" data-clear="${k}" data-v="${esc(v)}" aria-label="Remove filter: ${esc(l)}">${esc(l)}<svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>`).join("")}</div>
     <label>Order <select id="sort"><option value="desc"${S.sort==="desc"?" selected":""}>Newest first</option><option value="asc"${S.sort==="asc"?" selected":""}>Oldest first</option></select></label></div>`;
-  if(!list.length)html+=`<div class="empty">No meetings match these filters. <button type="button" class="linkbtn" id="reset2">Clear filters</button></div>`;
+  if(!list.length)html+=`<div class="empty">No meetings match. Try fewer words or another year, or <button type="button" class="linkbtn" id="reset2">clear the filters</button>.</div>`;
   let cur="";const groups=[];
   list.forEach(r=>{if(r.y!==cur){cur=r.y;groups.push([cur,[]])}groups[groups.length-1][1].push(r)});
-  html+=groups.map(([y,rs])=>`<h2 class="yearhead">${y}<small>${rs.filter(r=>r.s!=="Cancelled").length} held</small></h2><div class="list">${rs.map(meetingCard).join("")}</div>`).join("");
+  html+=groups.map(([y,rs])=>`<h2 class="yearhead">${y}<small>${plural(rs.filter(r=>r.s!=="Cancelled").length,"meeting")}</small></h2><div class="list">${rs.map(meetingCard).join("")}</div>`).join("");
   const v=$("#view-meetings");v.innerHTML=html;
   const so=$("#sort");if(so)so.onchange=e=>{S.sort=e.target.value;renderMeetings();syncURL("push");refocus("#sort")};
   const r2=$("#reset2");if(r2)r2.onclick=()=>$("#reset").click();
@@ -234,14 +235,14 @@ function matchTag(name){const n=name.toLowerCase();
   if(!best)best=tagsSorted.find(t=>t.toLowerCase().split(/[\s/]+/).some(w=>w.length>4&&n.includes(w)));return best||null}
 function renderStories(){
   const tp=(DATA&&DATA.topics)||[];
-  $("#view-stories").innerHTML=`<p class="note" style="margin:0 0 14px">The long-running issues, year by year. Pick one to see every meeting where it came up.</p><div class="stories">${tp.map(([name,what,tl,open])=>{
+  $("#view-stories").innerHTML=`<p class="lede-note">The long-running matters before the board, traced year by year. Each links to every meeting where it came up.</p><div class="stories">${tp.map(([name,what,tl,open])=>{
     const parts=String(tl||"").split(/(?:^|\s)(20\d\d):\s*/).filter(s=>s!=="");const segs=[];
     for(let i=0;i<parts.length;i++){if(/^20\d\d$/.test(parts[i])){segs.push([parts[i],parts[i+1]||""]);i++}else if(parts[i].trim())segs.push(["",parts[i]])}
     const tag=matchTag(name);
     return `<article class="story"><h3>${esc(name)}</h3>${what?`<p class="what">${esc(what)}</p>`:""}
       <div class="tl">${segs.map(([y,t])=>`<div>${y?`<div class="yr">${y}</div>`:""}<ul>${t.split(/;\s+(?=[^)]*(?:\(|$))/).map(s=>s.trim().replace(/\.$/,"")).filter(Boolean).map(s=>`<li>${esc(s)}</li>`).join("")}</ul></div>`).join("")}</div>
       ${open?`<div class="open"><b>Still open</b>${esc(open)}</div>`:""}
-      ${tag?`<button type="button" class="chip more" data-story-tag="${esc(tag)}">See ${tagCount[tag]} meetings tagged “${esc(tag)}” <span aria-hidden="true">→</span></button>`:""}
+      ${tag?`<button type="button" class="chip more" data-story-tag="${esc(tag)}">All ${plural(tagCount[tag],"meeting")} on ${esc(tag)}</button>`:""}
     </article>`}).join("")}</div>`;
 }
 $("#view-stories").addEventListener("click",e=>{const b=e.target.closest("[data-story-tag]");if(!b)return;S.topics.clear();S.topics.add(b.dataset.storyTag);setTab("meetings");go();window.scrollTo({top:0});focusResults()});
@@ -254,13 +255,13 @@ function renderMap(){
   rows.forEach(r=>{const q=qOf(r);r.tags.forEach(t=>{const k=t+"|"+q;cnt[k]=(cnt[k]||0)+1;max=Math.max(max,cnt[k])})});
   const h=n=>(n/max).toFixed(3);
   let first=true;
-  $("#view-map").innerHTML=`<p class="note" id="map-help" style="margin:0 0 14px">When each topic came up, by quarter. Darker means more meetings. Click a square to see those meetings. With a keyboard, Tab into the grid, use the arrow keys to move, and press Enter to open.</p>
+  $("#view-map").innerHTML=`<p class="lede-note" id="map-help">How often the most common topics came up, by quarter. Stronger color means more meetings. Select a square to list them. With a keyboard, Tab into the grid, use the arrow keys to move, and press Enter to open.</p>
   <div class="heatwrap"><table class="heat" role="grid" aria-label="Topics by quarter" aria-describedby="map-help"><thead><tr><th scope="col"><span class="sr-only">Topic</span></th>${qList.map(q=>`<th scope="col" title="${q}" aria-label="${q.replace("-"," ")}">${q.endsWith("Q1")?q.slice(0,4):""}<br>${q.slice(-2)}</th>`).join("")}</tr></thead><tbody>
   ${top.map(t=>`<tr><th class="row" scope="row">${esc(t)}</th>${qList.map(q=>{const n=cnt[t+"|"+q]||0;const lab=`${esc(t)}, ${q.replace("-"," ")}: ${n} meeting${n===1?"":"s"}`;
     const ti=n&&first?(first=false,0):-1;
     return `<td class="${n?"has":""}"${n?` style="--h:${h(n)}"`:""} tabindex="${ti}" data-t="${esc(t)}" data-q="${q}" title="${lab}" aria-label="${lab}"${n?"":` aria-disabled="true"`}>${n||""}</td>`}).join("")}</tr>`).join("")}
   </tbody></table>
-  <div class="legend" aria-hidden="true">Fewer <i style="--h:${h(1)}"></i><i style="--h:${h(Math.ceil(max/2))}"></i><i style="--h:1"></i> More &middot; Top ${top.length} topics shown</div></div>`;
+  <div class="legend" aria-hidden="true">Fewer <i style="--h:${h(1)}"></i><i style="--h:${h(Math.ceil(max/2))}"></i><i style="--h:1"></i> More. Top ${top.length} topics shown.</div></div>`;
 }
 function openCell(c){if(!c||!c.classList.contains("has"))return;
   S.topics.clear();S.topics.add(c.dataset.t);S.quarter=c.dataset.q;S.years.clear();setTab("meetings");go();window.scrollTo({top:0});focusResults()}
@@ -293,7 +294,7 @@ function renderVotes(){
   const splits=vr.filter(r=>r.split).length;
   const scope=[S.years.size?[...S.years].sort().join(", "):"",S.quarter?S.quarter.replace("-"," "):"",...S.topics,
     S.split?"split votes only":"",S.pc?"with public comment":"",S.q?`matching “${esc(S.q)}”`:""].filter(Boolean);
-  const scopeLine=`<div class="resultbar"><span role="status">${scope.length?`Counting ${vr.length} meeting${vr.length===1?"":"s"}: ${scope.map(esc).join(" &middot; ")}`:`Counting all ${vr.length} meetings`}</span>${scope.length?`<button type="button" class="linkbtn" data-votes-reset>Clear filters</button>`:""}</div>`;
+  const scopeLine=`<div class="resultbar"><span role="status">${scope.length?`Counting ${plural(vr.length,"meeting")}: ${scope.map(esc).join(", ")}`:`Counting all ${vr.length} meetings`}</span>${scope.length?`<button type="button" class="linkbtn" data-votes-reset>Clear filters</button>`:""}</div>`;
   if(!vr.length){$("#view-votes").innerHTML=scopeLine+`<div class="empty">No meetings match these filters.</div>`;return}
   $("#view-votes").innerHTML=scopeLine+`<div class="votegrid">
     <div class="card"><h3>Who votes no</h3><p class="sub">Meetings where each member cast at least one recorded no vote. ${splits} of ${vr.length} meetings had a split vote. Click a name to see those meetings.</p>${bars(noC,"","no")}</div>
@@ -314,5 +315,8 @@ window.addEventListener("popstate",()=>{readURL();setTab(S.tab);renderChips();re
 renderStories();renderMap();renderVotes();setTab(S.tab);renderChips();renderMeetings();
 // Turn an old "#votes"-style link into the query-string form.
 if(location.hash)syncURL("replace");
+// Reveal the filters only after the first render, so nothing animates on page load.
+void getComputedStyle(document.body).color;document.querySelectorAll(".toggle input,.tab").forEach(el=>getComputedStyle(el).backgroundColor);
+setTimeout(()=>document.body.classList.remove("is-loading"),50);
 }
 })();
