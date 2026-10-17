@@ -152,6 +152,7 @@ aside.rail{position:sticky;top:84px;max-height:calc(100vh - 100px);overflow:auto
 .pill.special{background:var(--primary-soft);color:var(--primary)}
 .pill.split{background:var(--accent-soft);color:var(--accent)}
 .pill.pending{background:var(--warn-soft);color:var(--warn)}
+.pill.upcoming{background:transparent;border:1px solid var(--primary);color:var(--primary)}
 .pill.cancel{background:transparent;border:1px dashed var(--border-strong);color:var(--muted)}
 .dissent{font-size:13.5px;font-weight:500;color:var(--accent)}
 .dissent.abs{color:var(--muted);font-weight:400}

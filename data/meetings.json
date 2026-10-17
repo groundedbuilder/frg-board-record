@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T14:05:24+00:00",
+ "updated": "2026-10-17T01:43:05+00:00",
  "redacted": true,
  "rows": [
   {
@@ -2568,9 +2568,9 @@
    "t": "Special",
    "s": "Held",
    "a": "Consent: surplus property (two 2020 Ford Explorers), fund transfers ($313,301 General to General Capital; $15,664 Water/Sewer Capital to Operating), Lions raffle waivers. FY25/26 audit presentation (Lauterbach & Amen). Ord 2026-15 pole sign at 502 NW Hwy.",
-   "o": "MINUTES NOT POSTED YET. Note: Ord 2026-15 is written as granting the pole sign, but 8/18 consensus was to reject it; a failed vote would deny it. Check minutes.",
-   "p": "",
-   "g": "Audit; Budget; Zoning 502 NW Hwy",
+   "o": "Per DRAFT minutes in the 10/20 packet (official minutes not posted yet): Consent A-F passed 5-0 (Wall absent). Audit (Lauterbach & Amen): unmodified opinion; GASB will require more detailed reporting in future. Ord 2026-15 pole sign at 502 NW Hwy: Knar motion to deny passed 5-0 (Wall absent), so the variance was denied. McLaughlin praised Block B progress (closing, building permits, move to construction). No executive session mentioned.",
+   "p": "Mary Lu Seidel asked whether the village will help residents pay for IEPA-mandated lead service line replacements, noting other towns help; no response recorded.",
+   "g": "Audit; Budget; Zoning 502 NW Hwy; Block B",
    "ag": "https://www.foxrivergrove.org/document%20center/Agendas/village%20board/Village%20Board%20Agenda%209-22-2026.pdf",
    "pk": "https://www.foxrivergrove.org/document%20center/Agendas/village%20board/Board%20Meeting%20Packet%202026-09-22%20(Public).pdf",
    "mn": null,
@@ -2588,14 +2588,27 @@
    "pk": null,
    "mn": null,
    "k": ""
+  },
+  {
+   "d": "2026-10-20",
+   "t": "Regular",
+   "s": "Upcoming",
+   "a": "Consent: 9/22 minutes; AP for 10/6 and 10/20 (~$625K total, incl. $278,248 Schroeder Asphalt Lions Park pay request #2, $4,191 Baxter & Woodman Block B PUD review, $7,500 Needle Drop BCAP grant); August treasurer's report; Ord 2026-16 surplus 2009 Ford F250; fee waivers for Firefighters turkey raffle and Lions Fall Fun. Executive session: property purchase/sale, litigation, personnel.",
+   "o": "",
+   "p": "",
+   "g": "Budget; Block B; Grants; Parks",
+   "ag": "https://www.foxrivergrove.org/document%20center/Agendas/village%20board/Village%20Board%20Agenda%2010-20-2026.pdf",
+   "pk": "https://www.foxrivergrove.org/document%20center/VB%20Public%20Packets/Board%20Meeting%20Packet%202026-10-20%20(Public).pdf",
+   "mn": null,
+   "k": "Pending"
   }
  ],
  "topics": [
   [
    "Block B / Downtown TIF #3",
    "Mixed-use redevelopment of the vacant downtown Block B lot (301/303 Opatrny, 300-316 Northwest Hwy) by FRG Partners (Harlem Irving + Hamilton Partners).",
-   "2021: 7/6 a downtown resident and a quilt shop owner asked about redevelopment plans; 8/17 and 9/7 trustees pushed for resident updates; 9/21 RFQ to market the site; 12/7 RFQ drew one proposal, a second developer found the site too small, Knar opposed drive-throughs and the board said residents want more than fast food. 2022: 3/1 Grove Residences LLC MOU (four buildings incl. restaurants, two drive-thrus) tabled 6-0 after residents objected; 5/3 MOU with American Construction Services (3 stories, 80 apts, 14-15K sf commercial) 6-0; 10/4 ATMK hired to market Block B ($60,000) 6-0; 11/8 $860,000 demolition placeholder in CIP. 2023: 1/17 staff told to ready a demolition bid package; 3/21 MOU with Norwood Builders & Compasspointe (5 stories, 151 units, 8,600 sf retail, 220 parking) 5-0; 8/15 Norwood still in due diligence; 11/7 consensus to bid demolition of all Block B buildings; 12/5 Knar got Block B updates on every agenda, demolition targeted spring 2024. 2024: Village demolished the Block B buildings: demolition bid to Omega III ($350K vs. $860K estimate) 3/19, demo April to June, site seeded by August. Knar pushed for developer incentives (2/6) and opposed other capital spending until Block B was under construction. 2025: 6/3 pre-application conference (Harlem Irving, Hamilton Partners, Zeller; 5 stories, 95 units, 7,000 sf retail); 6/17 resident John Martin called 5 stories too tall; 8/5 Teska hired to study a Block B-only downtown TIF (6-0); 11/11 board began planning long-term acquisition of Block C; 12/16 Res 2025-05 intent to use TIF. 2026: 1/20 TIF hearing; 2/17 TIF #3 created 6-0; 4/21 PUD presented (5 stories, 97 apts, 6,000 sf retail, 170 parking); 5/5 rezoning/PUD passed; 7/7 redevelopment agreement 5-1; 8/18 purchase & sale + first amendment 5-1. Joseph the lone no on the agreements. Residents raised parking, height, fire equipment.",
-   "Construction timing; parking; whether school districts' refusal to share TIF receipts costs the village."
+   "2021: 7/6 a downtown resident and a quilt shop owner asked about redevelopment plans; 8/17 and 9/7 trustees pushed for resident updates; 9/21 RFQ to market the site; 12/7 RFQ drew one proposal, a second developer found the site too small, Knar opposed drive-throughs and the board said residents want more than fast food. 2022: 3/1 Grove Residences LLC MOU (four buildings incl. restaurants, two drive-thrus) tabled 6-0 after residents objected; 5/3 MOU with American Construction Services (3 stories, 80 apts, 14-15K sf commercial) 6-0; 10/4 ATMK hired to market Block B ($60,000) 6-0; 11/8 $860,000 demolition placeholder in CIP. 2023: 1/17 staff told to ready a demolition bid package; 3/21 MOU with Norwood Builders & Compasspointe (5 stories, 151 units, 8,600 sf retail, 220 parking) 5-0; 8/15 Norwood still in due diligence; 11/7 consensus to bid demolition of all Block B buildings; 12/5 Knar got Block B updates on every agenda, demolition targeted spring 2024. 2024: Village demolished the Block B buildings: demolition bid to Omega III ($350K vs. $860K estimate) 3/19, demo April to June, site seeded by August. Knar pushed for developer incentives (2/6) and opposed other capital spending until Block B was under construction. 2025: 6/3 pre-application conference (Harlem Irving, Hamilton Partners, Zeller; 5 stories, 95 units, 7,000 sf retail); 6/17 resident John Martin called 5 stories too tall; 8/5 Teska hired to study a Block B-only downtown TIF (6-0); 11/11 board began planning long-term acquisition of Block C; 12/16 Res 2025-05 intent to use TIF. 2026: 1/20 TIF hearing; 2/17 TIF #3 created 6-0; 4/21 PUD presented (5 stories, 97 apts, 6,000 sf retail, 170 parking); 5/5 rezoning/PUD passed; 7/7 redevelopment agreement 5-1; 8/18 purchase & sale + first amendment 5-1. Joseph the lone no on the agreements. Residents raised parking, height, fire equipment. 9/22: McLaughlin said the property closed, permits were issued, and construction is starting; 10/20 AP includes Baxter & Woodman PUD review and TIF/FRG Partners legal fees.",
+   "Construction progress and timing; parking; whether school districts' refusal to share TIF receipts costs the village."
   ],
   [
    "Trustee Joseph censure & transparency",
@@ -2607,13 +2620,13 @@
    "Budget & water/sewer rates",
    "FY 2026/27 budget and 4.75% water/sewer increase (~$4.04/mo average household).",
    "2019: 2/25 workshop (board agreed to take the CPI increase in the levy, Fleischmann dissenting; 3.65% water/sewer increase and rebalancing toward consumption); 4/18 FY19/20 budget 6-0 and 3.65% water/sewer increase (IEPA phosphorus mandates) 6-0; 11/7 capital meeting backed a rate-funded water main replacement program (about a 62% water rate increase) with a public forum first; 11/19 levy determination $954,156 4-1 (Fleischmann no); 12/17 levy 4-1 (Fleischmann no); village paid off its last bond debt in December. 2020: 3/10 workshop (water main replacement about 35 years, board recommended raising rates over 3 years); 4/7 any utility increase held 90 days for COVID-19; 4/21 FY20/21 budget 6-0; 8/18 water/sewer rate ordinance 4-1 (Wall no), without the extra water main increase; 11/17 levy determination $974,920 5-1 (Fleischmann no); 12/15 levy 5-1 (Fleischmann no). 2021: 3/9 workshop (consensus to add $750,000+ to the police pension); 4/20 FY21/22 budget, water/sewer rate adjustment and vehicle sticker ordinance passed 6-0 (stickers dropped to offset water main rate increases); 11/16 levy determination $990,059 (CPI 1.4%) 6-0; 12/7 levy ordinance 6-0. 2022: 3/9 workshop; 4/19 FY22/23 budget 5-0, rate ordinance tabled to look at ARPA; 6/21 7.25% water/sewer increase (ARPA trimmed water to 11.37%) passed 4-0-1 (Knar abstained), Wall later said he'd have voted no; 11/1 levy +8.63% failed 2-3, 11/8 passed 4-2 (Schladt, Sepeczi no) paired with a 40% electricity tax cut. 2023: 3/14 workshop; 4/4 board chose the 75% tax recapture scenario to soften the final water main rate step; 4/18 FY23/24 budget ($4.36M operating) and +4.5% water/+3% sewer passed 5-0-1 (Wall present); 11/7 levy $1,129,807 (+5.97%) 5-0 with no offsets; 11/15 water/sewer capital gaps to be closed with future rate increases. 2024: 3/21 workshop; 4/16 FY24/25 budget passed 4-1-1 (Schladt no, Knar present) and 3.6% water/sewer increase 6-0; 11/5 levy +4.30% passed 6-0; 11/12 board declined levy offsets. 2025: 3/12 workshop (3.4% proposed); 3/18 consensus on one-time $250,000 General Capital to Water/Sewer transfer with payback, base rate flat; 4/22 FY25/26 budget and 3% usage-rate increase passed 6-0; Kyle Platt repeatedly urged usage-based pricing; 11/4 levy +3.99% passed 4-2 (Knar, Migdal no). 2026: 3/11 workshop; 3/31 hearing; 4/21 adopted 5-1 (Joseph no); 5/5 budget amendment; 9/22 FY25/26 audit + fund transfers.",
-   "Whether base fee shifts to usage-based pricing."
+   "Whether base fee shifts to usage-based pricing; whether the village helps residents with IEPA lead service line replacement costs (raised 9/22)."
   ],
   [
    "Zoning cases",
    "Variance and special-use requests.",
-   "2019: 713 Hunters Way accessory structure and 501 Algonquin Rd parking lot (5/2, 4-0); ZBA and PEDC combined (5/2); Sticks, 700 NW Hwy outdoor seating (6/20, 5-0); fence code rewrite (8/1, 4-0); 416-418 Concord tours special use passed 4-2 (Curtiss, Schladt no) over a neighbor's concerns (10/15); 1003 Rte 22 accessory structure (11/5); cannabis dispensary zoning 4-1 (Schladt no) (12/3). 2020: 400 NW Hwy Mobil sign variance on consent (12/1). 2021: 27 Brighton Ct setback, 1005 Rte 22 rezoning/outdoor storage and Doyle & North parcel rezoning (3/16, 5-0); 901 Pleasant St rezoning (5/18); 721 Old Hunt fence (7/20); 412 NW Hwy outdoor seating (7/20, 6-0); 229 Foxmoor fence over a neighbor's objection (10/19). 2022: 9419 Doyle Rd Lund Automotive variances (2/15, 6-0); 1005 Algonquin Rd garage (approved 6/21, setback amended to 35 ft 9/6); 412 NW Hwy upper deck sent back after neighbor objections (6/21); Redwood PUD approved 9/20 over P&Z denial; massage use at 922 Rte 22 and Clear Channel digital billboard at 1000 NW Hwy (12/20). 2023: short-term room rentals banned (5/2, over P&Z's denial recommendation); 1050 NW Hwy Avante Banquets stormwater variance (5/16, 6/6, 6-0); 1001 Rte 22 outdoor storage variances failed 1-5 (6/6); 1204 Hillcrest porch (11/7). 2024: 906 Rte 22 adult day care (3/5, 6-0); 913 Rte 22 DA Racing car sales/repair (7/2, 5-0); Norge pole barn, 100 Ski Hill (8/6); 415 Ski Hill garage height denied 6-0 (8/20); 220 Gladys garage failed 8/6 with three trustees absent, then passed on reconsideration 9/3; shipping containers allowed in B3 by special use (8/6); accessory structure rules loosened (10/1). 2025: 912 NW Hwy massage school (3/4, 4-0); 418 Concord special uses rescinded after neighbor complaints (4/22, 6-0); 206 N River Rd (Allen) variances tabled 4/22, approved 6/3 4-2 plus President (Joseph, Knar no) over neighbor flooding concerns; Norge Ski Club container, 100 Ski Hill (6/3) and former Norge Park container (12/16); 107 Center porch (9/2) led to a covered-porch code change (11/4); business use table rewritten, cannabis dispensaries made a permitted use (6/3). 2026: 206 N River Rd (approved 2/17, 5-1); 408 Lincoln car sales lot (approved 6/16, 5-2); 601 Thackeray fence (approved 8/4); 502 NW Hwy pole sign (P&Z denied 3-1; board vote 9/22).",
-   "502 NW Hwy outcome."
+   "2019: 713 Hunters Way accessory structure and 501 Algonquin Rd parking lot (5/2, 4-0); ZBA and PEDC combined (5/2); Sticks, 700 NW Hwy outdoor seating (6/20, 5-0); fence code rewrite (8/1, 4-0); 416-418 Concord tours special use passed 4-2 (Curtiss, Schladt no) over a neighbor's concerns (10/15); 1003 Rte 22 accessory structure (11/5); cannabis dispensary zoning 4-1 (Schladt no) (12/3). 2020: 400 NW Hwy Mobil sign variance on consent (12/1). 2021: 27 Brighton Ct setback, 1005 Rte 22 rezoning/outdoor storage and Doyle & North parcel rezoning (3/16, 5-0); 901 Pleasant St rezoning (5/18); 721 Old Hunt fence (7/20); 412 NW Hwy outdoor seating (7/20, 6-0); 229 Foxmoor fence over a neighbor's objection (10/19). 2022: 9419 Doyle Rd Lund Automotive variances (2/15, 6-0); 1005 Algonquin Rd garage (approved 6/21, setback amended to 35 ft 9/6); 412 NW Hwy upper deck sent back after neighbor objections (6/21); Redwood PUD approved 9/20 over P&Z denial; massage use at 922 Rte 22 and Clear Channel digital billboard at 1000 NW Hwy (12/20). 2023: short-term room rentals banned (5/2, over P&Z's denial recommendation); 1050 NW Hwy Avante Banquets stormwater variance (5/16, 6/6, 6-0); 1001 Rte 22 outdoor storage variances failed 1-5 (6/6); 1204 Hillcrest porch (11/7). 2024: 906 Rte 22 adult day care (3/5, 6-0); 913 Rte 22 DA Racing car sales/repair (7/2, 5-0); Norge pole barn, 100 Ski Hill (8/6); 415 Ski Hill garage height denied 6-0 (8/20); 220 Gladys garage failed 8/6 with three trustees absent, then passed on reconsideration 9/3; shipping containers allowed in B3 by special use (8/6); accessory structure rules loosened (10/1). 2025: 912 NW Hwy massage school (3/4, 4-0); 418 Concord special uses rescinded after neighbor complaints (4/22, 6-0); 206 N River Rd (Allen) variances tabled 4/22, approved 6/3 4-2 plus President (Joseph, Knar no) over neighbor flooding concerns; Norge Ski Club container, 100 Ski Hill (6/3) and former Norge Park container (12/16); 107 Center porch (9/2) led to a covered-porch code change (11/4); business use table rewritten, cannabis dispensaries made a permitted use (6/3). 2026: 206 N River Rd (approved 2/17, 5-1); 408 Lincoln car sales lot (approved 6/16, 5-2); 601 Thackeray fence (approved 8/4); 502 NW Hwy pole sign (P&Z denied 3-1; board denied 5-0 on 9/22 per draft minutes).",
+   "None pending."
   ],
   [
    "Business grants (BCAP / facade)",
@@ -2795,11 +2808,11 @@
   ],
   [
    "Coverage",
-   "All 2019 to 2026 meetings (Jan 17, 2019 to Oct 6, 2026)"
+   "All 2019 to 2026 meetings (Jan 17, 2019 to Oct 20, 2026)"
   ],
   [
    "Last checked",
-   "2026-10-03"
+   "2026-10-17"
   ],
   [
    "How it updates",

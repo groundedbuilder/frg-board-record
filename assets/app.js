@@ -108,11 +108,13 @@ function syncURL(mode){
 readURL();
 
 // --- header stats
-const held=rows.filter(r=>r.s!=="Cancelled");
+// "Upcoming" meetings (agenda posted, not yet held) are listed but left out of held-meeting counts and vote tallies.
+const wasHeld=r=>r.s!=="Cancelled"&&r.s!=="Upcoming";
+const held=rows.filter(wasHeld);
 const yrs=[...new Set(rows.map(r=>r.y))].sort();
 $("#stats").innerHTML=[
   [held.length,"meetings held"],[rows.filter(r=>r.split).length,"with split votes"],
-  [rows.filter(r=>r.p&&r.p!=="None."&&r.s!=="Cancelled").length,"with public comment"],
+  [rows.filter(r=>r.p&&r.p!=="None."&&wasHeld(r)).length,"with public comment"],
   [yrs.length?yrs[0]+"–"+yrs[yrs.length-1].slice(2):"–","years covered"]
 ].map(([n,l])=>`<div class="stat"><b>${n}</b><small>${l}</small></div>`).join("");
 {const lc=about["Last checked"]||"",lcd=/^\d{4}-\d\d-\d\d$/.test(lc)?new Date(lc+"T12:00").toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}):lc;
@@ -124,7 +126,7 @@ if(DATA.updated){const d=new Date(DATA.updated);
 const tagCount={};rows.forEach(r=>r.tags.forEach(t=>tagCount[t]=(tagCount[t]||0)+1));
 const tagsSorted=Object.keys(tagCount).sort((a,b)=>tagCount[b]-tagCount[a]||a.localeCompare(b));
 function renderChips(){
-  $("#years").innerHTML=yrs.slice().reverse().map(y=>{const n=rows.filter(r=>r.y===y&&r.s!=="Cancelled").length;
+  $("#years").innerHTML=yrs.slice().reverse().map(y=>{const n=rows.filter(r=>r.y===y&&wasHeld(r)).length;
     return `<button type="button" class="chip" data-year="${y}" aria-pressed="${S.years.has(y)}" aria-label="${y}, ${n} meetings">${y}<span class="n" aria-hidden="true">${n}</span></button>`}).join("");
   const list=S.allTopics?tagsSorted:tagsSorted.slice(0,16).concat([...S.topics].filter(t=>tagsSorted.indexOf(t)>=16));
   $("#topics").innerHTML=list.map(t=>`<button type="button" class="chip" data-topic="${esc(t)}" aria-pressed="${S.topics.has(t)}" aria-label="${esc(t)}, ${tagCount[t]} meetings">${esc(t)}<span class="n" aria-hidden="true">${tagCount[t]}</span></button>`).join("");
@@ -193,7 +195,7 @@ function meetingCard(r){
     return `<a href="${esc(u)}" target="_blank" rel="noopener" aria-label="${t} PDF, ${label} (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>${t}</a>`}).join("");
   if(r.s==="Cancelled")return `<article class="mtg cancelled" aria-label="${label}, cancelled">${dates}<div><div class="mhead"><span class="pill cancel">Cancelled</span><span class="pill">${esc(r.t)}</span></div><div class="docs">${docs}</div></div></article>`;
   const pills=[r.t&&r.t!=="Regular"?`<span class="pill special">${esc(r.t)}</span>`:`<span class="pill">Regular</span>`,
-    r.split?`<span class="pill split">Split vote</span>`:"",r.k==="Pending"?`<span class="pill pending">Minutes not yet posted</span>`:""].join("");
+    r.split?`<span class="pill split">Split vote</span>`:"",r.s==="Upcoming"?`<span class="pill upcoming">Upcoming</span>`:r.k==="Pending"?`<span class="pill pending">Minutes not yet posted</span>`:""].join("");
   const pc=r.p&&r.p!=="None."&&r.p.trim()?`<details class="sec"${S.q&&r.p.toLowerCase().includes(S.q.toLowerCase())?" open":""}><summary><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Public comment</summary><p>${hl(r.p)}</p></details>`:"";
   const dis=r.no.length?`<span class="dissent">Voted no: ${esc([...new Set(r.no)].join(", "))}</span>`:"";
   const absn=r.abs.length?`<span class="dissent abs">Absent: ${esc(r.abs.join(", "))}</span>`:"";
@@ -281,7 +283,7 @@ $("#view-map").addEventListener("keydown",e=>{
 // --- votes & attendance
 const activeOn=(m,date)=>{const sp=m.spans[date.slice(0,4)];return !!sp&&date>=sp[0]&&date<=sp[1]};
 function renderVotes(){
-  const vr=filtered({anyMember:true}).filter(r=>r.s!=="Cancelled");
+  const vr=filtered({anyMember:true}).filter(wasHeld);
   // members on the board for at least one of these meetings
   const serving=[...members.values()].filter(m=>vr.some(r=>activeOn(m,r.d)));
   const noC={},absC={};serving.forEach(m=>{noC[m.label]=0;absC[m.label]=0});
