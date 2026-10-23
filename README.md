@@ -34,7 +34,7 @@ pip3 install --user -r requirements.txt
 python3 scripts/update_data.py
 ```
 
-That reads `Village Board Tracker.xlsx` from your iCloud *Village Board* folder and writes `data/meetings.json`. You'll see something like:
+That reads `Village Board Tracker.xlsx` from the *Village Board* folder next to this project (Documents › 05 Projects › FRG Board Record › Village Board) and writes `data/meetings.json`. You'll see something like:
 
 ```
 Exported 75 meetings, 12 storylines to data/meetings.json

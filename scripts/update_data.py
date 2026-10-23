@@ -23,7 +23,7 @@ except ImportError:
     sys.exit("This script needs openpyxl. Install it with:\n    pip3 install --user -r requirements.txt")
 
 DEFAULT_TRACKER = os.path.expanduser(
-    "~/Library/Mobile Documents/com~apple~CloudDocs/Village Board/Village Board Tracker.xlsx"
+    "~/Documents/05 Projects/FRG Board Record/Village Board/Village Board Tracker.xlsx"
 )
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_OUT = os.path.join(ROOT, "data", "meetings.json")
