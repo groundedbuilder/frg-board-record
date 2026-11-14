@@ -186,6 +186,34 @@ function hl(s){s=String(s??"");const terms=S.q.split(/\s+/).filter(t=>t.length>1
   const re=new RegExp("("+terms.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")+")","gi");
   return s.split(re).map((part,i)=>i%2?`<mark>${esc(part)}</mark>`:esc(part)).join("")}
 
+// --- summaries as lists
+// Splits a run-on summary into list items, only outside parentheses: sentences at ". "
+// (skipping titles, days, months and initials) and, for agendas, clauses at ";".
+// A short "Label: ..." lead is shown bold; a labelled agenda sentence with several ";"
+// clauses (e.g. the consent agenda) gets sub-items. One plain item stays a paragraph.
+const ABBR=new Set("no nos mr mrs ms sen rep gov inc corp jr sr vs approx incl est sat sun mon tue tues wed thu thur fri jan feb mar apr aug sep sept oct nov dec".split(" "));
+function cutTop(s,at){const out=[];let dep=0,start=0;
+  for(let i=0;i<s.length;i++){const c=s[i];
+    if(c==="("||c==="[")dep++;else if((c===")"||c==="]")&&dep>0)dep--;
+    else if(!dep&&at(s,i)){out.push(s.slice(start,i+1));start=i+1}}
+  out.push(s.slice(start));return out.map(x=>x.trim()).filter(Boolean)}
+function sentEnd(s,i){if(s[i]!=="."||s[i+1]!==" "||!/[A-Z0-9$"“]/.test(s[i+2]||""))return false;
+  const w=(s.slice(0,i).match(/(\S+)$/)||["",""])[1];
+  return !(ABBR.has(w.toLowerCase())||/^[A-Z]$/.test(w)||w.includes("."))}
+const trimEnd=t=>t.replace(/[;.]\s*$/,"").trim();
+function summaryItems(s,clauses){const res=[];
+  for(const sent of cutTop(String(s||""),sentEnd)){
+    const m=/^([^:;()]{2,48}?):\s+(.+)$/.exec(sent);
+    const lab=m&&m[1].split(/\s+/).length<=6?m[1]:null;
+    const body=lab?m[2]:sent;
+    const parts=clauses?cutTop(body,(t,i)=>t[i]===";").map(trimEnd).filter(Boolean):[trimEnd(body)];
+    if(lab)res.push({label:lab,text:parts.length>1?"":parts[0]||"",sub:parts.length>1?parts:null});
+    else parts.forEach(p=>res.push({text:p}))}
+  return res}
+function summaryHTML(s,clauses){const it=summaryItems(s,clauses);
+  if(it.length<2&&!(it[0]&&(it[0].label||it[0].sub)))return `<p>${hl(s)}</p>`;
+  return `<ul class="items">${it.map(x=>`<li>${x.label?`<strong>${hl(x.label)}</strong>${x.text?": ":""}`:""}${hl(x.text)}${x.sub?`<ul>${x.sub.map(t=>`<li>${hl(t)}</li>`).join("")}</ul>`:""}</li>`).join("")}</ul>`}
+
 // --- meetings view
 function meetingCard(r){
   const d=new Date(r.d+"T12:00");const m=MON[d.getMonth()],day=d.getDate();
@@ -201,8 +229,8 @@ function meetingCard(r){
   const absn=r.abs.length?`<span class="dissent abs">Absent: ${esc(r.abs.join(", "))}</span>`:"";
   return `<article class="mtg" aria-label="${label} meeting">${dates}<div style="min-width:0">
     <div class="mhead">${pills}${dis}${absn}</div>
-    <div class="sec"><h4>On the agenda</h4><p>${hl(r.a)}</p></div>
-    ${r.o?`<div class="sec"><h4>What happened</h4><p>${hl(r.o)}</p></div>`:""}
+    <div class="sec"><h4>On the agenda</h4>${summaryHTML(r.a,true)}</div>
+    ${r.o?`<div class="sec"><h4>What happened</h4>${summaryHTML(r.o,false)}</div>`:""}
     ${pc}
     <div class="mfoot"><div class="tags">${r.tags.map(t=>`<button type="button" class="tag" data-tag="${esc(t)}" aria-label="Filter by topic: ${esc(t)}">${esc(t)}</button>`).join("")}</div><div class="docs">${docs}</div></div>
   </div></article>`;

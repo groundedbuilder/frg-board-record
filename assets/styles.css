@@ -159,6 +159,13 @@ aside.rail{position:sticky;top:84px;max-height:calc(100vh - 100px);overflow:auto
 .sec{margin-top:10px;min-width:0}
 .sec h4{margin:0 0 2px;font-size:13px;font-weight:600;color:var(--muted)}
 .sec p{margin:0;max-width:74ch;color:var(--ink-2);overflow-wrap:anywhere}
+.sec .items{margin:4px 0 0;padding-left:18px;max-width:74ch;color:var(--ink-2);overflow-wrap:anywhere}
+.sec .items li{margin:0 0 5px;padding-left:2px}
+.sec .items li:last-child{margin-bottom:0}
+.sec .items li::marker{color:var(--faint)}
+.sec .items strong{font-weight:600;color:var(--ink)}
+.sec .items ul{margin:4px 0 0;padding-left:18px;list-style:circle}
+.sec .items ul li{margin-bottom:3px}
 details.sec summary{display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);list-style:none;border-radius:4px;transition:color var(--t) var(--ease)}
 details.sec summary:hover{color:var(--ink)}
 details.sec summary::-webkit-details-marker{display:none}
